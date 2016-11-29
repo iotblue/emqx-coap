@@ -1,6 +1,6 @@
 PROJECT = emq_coap
 PROJECT_DESCRIPTION = CoAP Gateway
-PROJECT_VERSION = 0.2.1
+PROJECT_VERSION = 0.3
 
 DEPS = cbor lager esockd mochiweb
 
