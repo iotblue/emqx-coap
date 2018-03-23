@@ -35,6 +35,13 @@
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          terminate/2, code_change/3]).
 
+%% emqx_protocol State
+-record(proto_state, {peername, sendfun, connected = false, client_id, client_pid,
+                      clean_sess, proto_ver, proto_name, username, is_superuser,
+                      will_msg, keepalive, keepalive_backoff, max_clientid_len,
+                      session, stats_data, mountpoint, ws_initial_headers,
+                      peercert_username, is_bridge, connected_at, headers}).
+
 -record(state, {proto, peer, keepalive, sub_topics = [], enable_stats}).
 
 -define(DEFAULT_KEEP_ALIVE_DURATION,  60*2).
@@ -177,7 +184,7 @@ handle_info({deliver, Msg = #mqtt_message{topic = TopicName, payload = Payload}}
     %% handle PUBLISH from broker
     ?LOG(debug, "deliver message from broker Topic=~p, Payload=~p, Subscribers=~p", [TopicName, Payload, Subscribers]),
     NewProto = ?PROTO_DELIVER_ACK(Msg, Proto),
-    deliver_to_coap(TopicName, Payload, Subscribers),
+    deliver_to_coap(unmount(Proto#proto_state.mountpoint, TopicName), Payload, Subscribers),
     {ok, NewerProto} = ?PROTO_SEND(Msg, NewProto),
     {noreply, State#state{proto = NewerProto}};
 
@@ -330,3 +337,11 @@ emit_stats(ClientId, State) ->
     {reply, Stats, _, _} = handle_call(stats, undefined, State),
     ?SET_CLIENT_STATS(ClientId, Stats),
     State.
+
+unmount(undefined, Any) ->
+    Any;
+unmount(MountPoint, Topic) ->
+    case catch split_binary(Topic, byte_size(MountPoint)) of
+        {MountPoint, Topic0} -> Topic0;
+        _ -> Topic
+    end.
