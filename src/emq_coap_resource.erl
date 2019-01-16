@@ -70,7 +70,7 @@ coap_post(_ChId, _Prefix, _Name, _Content) ->
 coap_put(_ChId, ?MQTT_PREFIX, [Topic], #coap_content{payload = Payload}) ->
     ?LOG(debug, "put message, Topic=~p, Payload=~p~n", [Topic, Payload]),
     Pid = get(mqtt_client_pid),
-    emq_coap_mqtt_adapter:publish(Pid, topic(Topic), Payload),
+    emq_coap_mqtt_adapter:publish(Pid, topic(list_to_binary([<<"/">>, Topic])), Payload),
     ok;
 coap_put(_ChId, Prefix, Name, Content) ->
     ?LOG(error, "put has error, Prefix=~p, Name=~p, Content=~p", [Prefix, Name, Content]),
@@ -112,10 +112,10 @@ get_auth(Query) ->
 
 get_auth([], Auth=#coap_mqtt_auth{}) ->
     Auth;
-get_auth([<<$c, $=, Rest/binary>>|T], Auth=#coap_mqtt_auth{}) ->
-    get_auth(T, Auth#coap_mqtt_auth{clientid = Rest});
 get_auth([<<$u, $=, Rest/binary>>|T], Auth=#coap_mqtt_auth{}) ->
-    get_auth(T, Auth#coap_mqtt_auth{username = Rest});
+    get_auth(T, Auth#coap_mqtt_auth{clientid = Rest, username = Rest});
+% get_auth([<<$u, $=, Rest/binary>>|T], Auth=#coap_mqtt_auth{}) ->
+%     get_auth(T, Auth#coap_mqtt_auth{username = Rest});
 get_auth([<<$p, $=, Rest/binary>>|T], Auth=#coap_mqtt_auth{}) ->
     get_auth(T, Auth#coap_mqtt_auth{password = Rest});
 get_auth([Param|T], Auth=#coap_mqtt_auth{}) ->
