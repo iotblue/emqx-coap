@@ -44,7 +44,9 @@ coap_discover(_Prefix, _Args) ->
 
 coap_get(ChId, ?MQTT_PREFIX, Name, Query, _Content) ->
     ?LOG(debug, "coap_get() Name=~p, Query=~p~n", [Name, Query]),
+    io:format("coap_get() Name=~p, Query=~p~n", [Name, Query]),
     #coap_mqtt_auth{clientid = Clientid, username = Usr, password = Passwd} = get_auth(Query),
+    io:format("auth clientid: ~p, username: ~p, password: ~p~n", [Clientid, Usr, Passwd]),
     case emq_coap_mqtt_adapter:client_pid(Clientid, Usr, Passwd, ChId) of
         {ok, Pid} ->
             put(mqtt_client_pid, Pid),
@@ -108,6 +110,7 @@ handle_info(Message, State) ->
 coap_ack(_Ref, State) -> {ok, State}.
 
 get_auth(Query) ->
+    io:format("Query ~p~n",[Query]),
     get_auth(Query, #coap_mqtt_auth{}).
 
 get_auth([], Auth=#coap_mqtt_auth{}) ->
