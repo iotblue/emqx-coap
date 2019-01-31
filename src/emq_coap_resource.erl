@@ -33,14 +33,16 @@
 -export([topic/1]).
 -endif.
 
--define(MQTT_PREFIX, [<<"coap">>]).
+% -define(MQTT_PREFIX, [<<"coap">>]).
+-define(MQTT_PREFIX, []).
 
 -define(LOG(Level, Format, Args),
     lager:Level("CoAP-RES: " ++ Format, Args)).
 
 % resource operations
 coap_discover(_Prefix, _Args) ->
-    [{absolute, [<<"coap">>], []}].
+    [{absolute, [], []}].
+    % [{absolute, [<<"coap">>], []}].
 
 coap_get(ChId, ?MQTT_PREFIX, Name, Query, _Content) ->
     ?LOG(debug, "coap_get() Name=~p, Query=~p~n", [Name, Query]),
