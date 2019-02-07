@@ -84,7 +84,7 @@ coap_delete(_ChId, _Prefix, _Name) ->
     {error, method_not_allowed}.
 
 coap_observe(ChId, ?MQTT_PREFIX, [Topic], Ack, Content) ->
-    TrueTopic = topic(Topic),
+    TrueTopic = topic(list_to_binary([<<"/">>, Topic])),
     ?LOG(debug, "observe Topic=~p, Ack=~p", [TrueTopic, Ack]),
     Pid = get(mqtt_client_pid),
     emq_coap_mqtt_adapter:subscribe(Pid, TrueTopic),
@@ -96,7 +96,7 @@ coap_observe(ChId, Prefix, Name, Ack, _Content) ->
 coap_unobserve({state, _ChId, ?MQTT_PREFIX, [Topic]}) ->
     ?LOG(debug, "unobserve ~p", [Topic]),
     Pid = get(mqtt_client_pid),
-    emq_coap_mqtt_adapter:unsubscribe(Pid, Topic),
+    emq_coap_mqtt_adapter:unsubscribe(Pid, list_to_binary([<<"/">>, Topic])),
     ok;
 coap_unobserve({state, ChId, Prefix, Name}) ->
     ?LOG(error, "ignore unknown unobserve request ChId=~p, Prefix=~p, Name=~p", [ChId, Prefix, Name]),
