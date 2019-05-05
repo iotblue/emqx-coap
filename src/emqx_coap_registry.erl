@@ -1,4 +1,4 @@
-%% Copyright (c) 2018 EMQ Technologies Co., Ltd. All Rights Reserved.
+%% Copyright (c) 2013-2019 EMQ Technologies Co., Ltd. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -14,18 +14,29 @@
 
 -module(emqx_coap_registry).
 
--author("Feng Lee <feng@emqtt.io>").
+-author("Feng Lee <feng@emqx.io>").
 
 -include("emqx_coap.hrl").
 
 -behaviour(gen_server).
 
 %% API.
--export([start_link/0, register_name/2, unregister_name/1, whereis_name/1, send/2, stop/0]).
+-export([ start_link/0
+        , register_name/2
+        , unregister_name/1
+        , whereis_name/1
+        , send/2
+        , stop/0
+        ]).
 
 %% gen_server.
--export([init/1, handle_call/3, handle_cast/2, handle_info/2,
-         terminate/2, code_change/3]).
+-export([ init/1
+        , handle_call/3
+        , handle_cast/2
+        , handle_info/2
+        , terminate/2
+        , code_change/3
+        ]).
 
 -record(state, {}).
 

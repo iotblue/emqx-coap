@@ -1,4 +1,4 @@
-%% Copyright (c) 2018 EMQ Technologies Co., Ltd. All Rights Reserved.
+%% Copyright (c) 2013-2019 EMQ Technologies Co., Ltd. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -16,9 +16,13 @@
 
 -behaviour(application).
 
+-emqx_plugin(?MODULE).
+
 -include("emqx_coap.hrl").
 
--export([start/2, stop/1]).
+-export([ start/2
+        , stop/1
+        ]).
 
 start(_Type, _Args) ->
     {ok, Sup} = emqx_coap_sup:start_link(),

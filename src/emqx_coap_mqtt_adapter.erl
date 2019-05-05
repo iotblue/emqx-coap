@@ -1,4 +1,4 @@
-%% Copyright (c) 2018 EMQ Technologies Co., Ltd. All Rights Reserved.
+%% Copyright (c) 2013-2019 EMQ Technologies Co., Ltd. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -23,13 +23,24 @@
 -include_lib("emqx/include/emqx_mqtt.hrl").
 
 %% API.
--export([subscribe/2, unsubscribe/2, publish/3, keepalive/1]).
+-export([ subscribe/2
+        , unsubscribe/2
+        , publish/3
+        , keepalive/1
+        ]).
 
--export([client_pid/4, stop/1]).
+-export([ client_pid/4
+        , stop/1
+        ]).
 
 %% gen_server.
--export([init/1, handle_call/3, handle_cast/2, handle_info/2,
-         terminate/2, code_change/3]).
+-export([ init/1
+        , handle_call/3
+        , handle_cast/2
+        , handle_info/2
+        , terminate/2
+        , code_change/3
+        ]).
 
 -record(state, {proto, peer, keepalive, sub_topics = [], enable_stats}).
 

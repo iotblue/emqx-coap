@@ -1,4 +1,4 @@
-%% Copyright (c) 2018 EMQ Technologies Co., Ltd. All Rights Reserved.
+%% Copyright (c) 2013-2019 EMQ Technologies Co., Ltd. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -21,8 +21,16 @@
 -include_lib("emqx/include/emqx.hrl").
 -include_lib("emqx/include/emqx_mqtt.hrl").
 
--export([coap_discover/2, coap_get/5, coap_post/4, coap_put/4, coap_delete/3,
-         coap_observe/5, coap_unobserve/1, handle_info/2, coap_ack/2]).
+-export([ coap_discover/2
+        , coap_get/5
+        , coap_post/4
+        , coap_put/4
+        , coap_delete/3
+        , coap_observe/5
+        , coap_unobserve/1
+        , handle_info/2
+        , coap_ack/2
+        ]).
 
 -ifdef(TEST).
 -export([topic/1]).

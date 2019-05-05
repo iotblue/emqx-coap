@@ -1,4 +1,4 @@
-%% Copyright (c) 2018 EMQ Technologies Co., Ltd. All Rights Reserved.
+%% Copyright (c) 2013-2019 EMQ Technologies Co., Ltd. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -16,7 +16,9 @@
 
 -behaviour(supervisor).
 
--export([start_link/0, init/1]).
+-export([ start_link/0
+        , init/1
+        ]).
 
 start_link() ->
     supervisor:start_link({local, ?MODULE}, ?MODULE, []).

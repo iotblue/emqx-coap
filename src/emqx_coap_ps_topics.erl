@@ -1,4 +1,4 @@
-%% Copyright (c) 2018 EMQ Technologies Co., Ltd. All Rights Reserved.
+%% Copyright (c) 2013-2019 EMQ Technologies Co., Ltd. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -20,14 +20,30 @@
 -include_lib("emqx/include/emqx.hrl").
 -include_lib("emqx/include/emqx_mqtt.hrl").
 
--export([start_link/0, stop/1]).
+-export([ start_link/0
+        , stop/1
+        ]).
 
--export([add_topic_info/4, delete_topic_info/1, delete_sub_topics/1, is_topic_existed/1,
-         is_topic_timeout/1, reset_topic_info/2, reset_topic_info/3, reset_topic_info/4,
-         lookup_topic_info/1, lookup_topic_payload/1]).
+-export([ add_topic_info/4
+        , delete_topic_info/1
+        , delete_sub_topics/1
+        , is_topic_existed/1
+        , is_topic_timeout/1
+        , reset_topic_info/2
+        , reset_topic_info/3
+        , reset_topic_info/4
+        , lookup_topic_info/1
+        , lookup_topic_payload/1
+        ]).
 
 %% gen_server.
--export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).
+-export([ init/1
+        , handle_call/3
+        , handle_cast/2
+        , handle_info/2
+        , terminate/2
+        , code_change/3
+        ]).
 
 -record(state, {}).
 

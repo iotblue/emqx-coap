@@ -1,4 +1,4 @@
-%% Copyright (c) 2018 EMQ Technologies Co., Ltd. All Rights Reserved.
+%% Copyright (c) 2013-2019 EMQ Technologies Co., Ltd. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -16,8 +16,13 @@
 
 -include("emqx_coap.hrl").
 
--export([cancel_timer/1, start_timer/2, restart_timer/1, kick_timer/1,
-         is_timeout/1, get_timer_length/1]).
+-export([ cancel_timer/1
+        , start_timer/2
+        , restart_timer/1
+        , kick_timer/1
+        , is_timeout/1
+        , get_timer_length/1
+        ]).
 
 -record(timer_state, {interval, kickme, tref, message}).
 

@@ -1,4 +1,4 @@
-%% Copyright (c) 2018 EMQ Technologies Co., Ltd. All Rights Reserved.
+%% Copyright (c) 2013-2019 EMQ Technologies Co., Ltd. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -16,7 +16,10 @@
 
 -include("emqx_coap.hrl").
 
--export([start/0, start/1, stop/0]).
+-export([ start/0
+        , start/1
+        , stop/0
+        ]).
 
 start() ->
     start(application:get_env(?APP, port, 5683)).
