@@ -32,7 +32,8 @@ start(Port) ->
         false ->
             emqx_logger:error("Certfile ~p or keyfile ~p are not valid, turn off coap DTLS", [CertFile, KeyFile])
     end,
-    coap_server_registry:add_handler([<<"mqtt">>], emqx_coap_resource, undefined),
+    % coap_server_registry:add_handler([<<"mqtt">>], emqx_coap_resource, undefined),
+    coap_server_registry:add_handler([], emqx_coap_resource, undefined),
     coap_server_registry:add_handler([<<"ps">>], emqx_coap_ps_resource, undefined),
     emqx_coap_ps_topics:start().
 
